@@ -677,6 +677,34 @@ html[data-theme="light"] .bar3{background:rgba(12,18,30,.09);}
 .tlcap li{position:relative;padding:4px 0 4px 18px;font-size:13.5px;color:var(--grey);line-height:1.55;}
 .tlcap li:before{content:"";position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:2px;background:var(--gold);}
 .tlcap .th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey-2);}
+/* trajetoria mobile: linha horizontal com arrasto */
+@media (max-width:760px){
+  .tl{overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;scrollbar-width:none;}
+  .tl::-webkit-scrollbar{display:none;}
+  .tl-row{grid-template-columns:repeat(5,158px);gap:14px;width:max-content;min-width:100%;padding-bottom:8px;}
+  .tl-row::before{content:"";position:absolute;left:0;right:0;top:44px;height:2px;
+    background:linear-gradient(90deg,transparent,var(--line-2) 8%,var(--line-2) 92%,transparent);
+    transform:scaleX(0);transform-origin:left;transition:transform 1.3s cubic-bezier(.2,.8,.3,1);}
+  .tl.on .tl-row::before{transform:scaleX(1);}
+  .tl-i{scroll-snap-align:center;}
+}
+/* feitos: popup central no mobile */
+@media (max-width:760px){
+  .tlcap.pop{position:fixed;left:18px;right:18px;top:50%;transform:translateY(-50%);z-index:230;margin:0;
+    max-height:72vh;overflow:auto;border:1px solid rgba(212,175,55,.55);
+    background-color:var(--panel);background-image:linear-gradient(150deg,rgba(212,175,55,.12),rgba(212,175,55,0) 60%);
+    box-shadow:0 30px 80px rgba(0,0,0,.65);animation:tpop .3s cubic-bezier(.2,.9,.3,1) both;}
+  @keyframes tpop{0%{opacity:0;transform:translateY(-50%) scale(.94);}100%{opacity:1;transform:translateY(-50%) scale(1);}}
+}
+.tlbk{position:fixed;inset:0;z-index:220;background:rgba(4,6,10,.7);backdrop-filter:blur(3px);animation:bkin .25s;}
+@keyframes bkin{from{opacity:0;}}
+.tlx{position:absolute;top:6px;right:8px;background:none;border:none;color:var(--grey);font-size:26px;line-height:1;cursor:pointer;padding:6px;}
+/* titulos acoplados: chips compactos */
+.titchips{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;}
+.tchip{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(212,175,55,.4);border-radius:100px;
+  padding:8px 15px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);}
+.tchip svg{flex-shrink:0;}
+.tchip b{color:var(--gold);font-weight:500;}
 /* titulos V5: cascata + slot de foto */
 .tits .tit{opacity:0;transform:translateY(14px);}
 .tits.on .tit{animation:titin .55s cubic-bezier(.2,1.2,.4,1) forwards;}
@@ -693,7 +721,7 @@ html[data-theme="light"] .bar3{background:rgba(12,18,30,.09);}
 #svgRadar g.seg{transform-box:view-box;transform-origin:50% 51%;}
 #svgRadar.rin g.seg{transform:scale(1);opacity:1;transition:transform .55s cubic-bezier(.2,.9,.3,1),opacity .35s;}
 /* CASCATA GERAL: destaques, encaixe e contato */
-.evc,.fitc,.cbox{opacity:0;transform:translateY(14px);}
+.evc,.fitc,.cbox,.titchips{opacity:0;transform:translateY(14px);}
 .rev{animation:revin .55s cubic-bezier(.2,.9,.3,1) forwards;}
 @keyframes revin{to{opacity:1;transform:none;}}
 .fitc li,.evc .row{opacity:0;transform:translateX(-8px);transition:opacity .45s,transform .45s;}
@@ -764,7 +792,6 @@ window.I18NDETF=function(lab,det){const l=document.documentElement.getAttribute(
 <nav class="fnav" aria-label="Sections">
   <a href="#visao" data-s="visao"><i></i><b><span class="l l-pt">Visão geral</span><span class="l l-en">Overview</span><span class="l l-es">Visión general</span></b></a>
   <a href="#ficha" data-s="ficha"><i></i><b><span class="l l-pt">Ficha e trajetória</span><span class="l l-en">Profile &amp; career</span><span class="l l-es">Ficha y trayectoria</span></b></a>
-  <a href="#titulos" data-s="titulos"><i></i><b><span class="l l-pt">Títulos</span><span class="l l-en">Honours</span><span class="l l-es">Títulos</span></b></a>
   <a href="#funcoes" data-s="funcoes"><i></i><b><span class="l l-pt">Posições e funções</span><span class="l l-en">Positions &amp; roles</span><span class="l l-es">Posiciones y funciones</span></b></a>
   <a href="#numeros" data-s="numeros"><i></i><b><span class="l l-pt">Os números</span><span class="l l-en">The numbers</span><span class="l l-es">Los números</span></b></a>
   <a href="#evolucao" data-s="evolucao"><i></i><b><span class="l l-pt">Destaques e evolução</span><span class="l l-en">Strengths</span><span class="l l-es">Destaques</span></b></a>
@@ -836,12 +863,11 @@ window.I18NDETF=function(lab,det){const l=document.documentElement.getAttribute(
       <div class="toc-t"><span class="l l-pt">Neste documento</span><span class="l l-en">In this document</span><span class="l l-es">En este documento</span></div>
       <div class="toc-l">
         <a href="#ficha"><i>01</i><span class="l l-pt">Ficha e trajetória</span><span class="l l-en">Profile and career</span><span class="l l-es">Ficha y trayectoria</span></a>
-        <a href="#titulos"><i>02</i><span class="l l-pt">Títulos</span><span class="l l-en">Honours</span><span class="l l-es">Títulos</span></a>
-        <a href="#funcoes"><i>03</i><span class="l l-pt">Posições e funções</span><span class="l l-en">Positions and roles</span><span class="l l-es">Posiciones y funciones</span></a>
-        <a href="#numeros"><i>04</i><span class="l l-pt">Os números</span><span class="l l-en">The numbers</span><span class="l l-es">Los números</span></a>
-        <a href="#evolucao"><i>05</i><span class="l l-pt">Destaques e evolução</span><span class="l l-en">Strengths and development</span><span class="l l-es">Destaques y evolución</span></a>
-        <a href="#encaixe"><i>06</i><span class="l l-pt">Encaixe tático</span><span class="l l-en">Tactical fit</span><span class="l l-es">Encaje táctico</span></a>
-        <a href="#contato"><i>07</i><span class="l l-pt">Contato</span><span class="l l-en">Contact</span><span class="l l-es">Contacto</span></a>
+        <a href="#funcoes"><i>02</i><span class="l l-pt">Função e arquétipo</span><span class="l l-en">Role and archetype</span><span class="l l-es">Función y arquetipo</span></a>
+        <a href="#numeros"><i>03</i><span class="l l-pt">Os números</span><span class="l l-en">The numbers</span><span class="l l-es">Los números</span></a>
+        <a href="#evolucao"><i>04</i><span class="l l-pt">Destaques e evolução</span><span class="l l-en">Strengths and development</span><span class="l l-es">Destaques y evolución</span></a>
+        <a href="#encaixe"><i>05</i><span class="l l-pt">Encaixe tático</span><span class="l l-en">Tactical fit</span><span class="l l-es">Encaje táctico</span></a>
+        <a href="#contato"><i>06</i><span class="l l-pt">Contato</span><span class="l l-en">Contact</span><span class="l l-es">Contacto</span></a>
       </div>
     </div>
   </div>
@@ -864,10 +890,12 @@ window.I18NDETF=function(lab,det){const l=document.documentElement.getAttribute(
         <div class="fact"><div class="k"><span class="l l-pt">Idade</span><span class="l l-en">Age</span><span class="l l-es">Edad</span></div><div class="v"><span class="l l-pt">19 anos</span><span class="l l-en">19 years</span><span class="l l-es">19 años</span></div></div>
         <div class="fact"><div class="k"><span class="l l-pt">Naturalidade</span><span class="l l-en">Birthplace</span><span class="l l-es">Naturalidad</span></div><div class="v"><span class="l l-pt">São Paulo (SP)</span><span class="l l-en">São Paulo, Brazil</span><span class="l l-es">São Paulo (SP)</span></div></div>
         <div class="fact"><div class="k"><span class="l l-pt">Nacionalidades</span><span class="l l-en">Nationalities</span><span class="l l-es">Nacionalidades</span></div><div class="v"><span class="l l-pt">Brasil e Portugal</span><span class="l l-en">Brazil and Portugal</span><span class="l l-es">Brasil y Portugal</span></div></div>
+        <div class="fact"><div class="k"><span class="l l-pt">Idiomas</span><span class="l l-en">Languages</span><span class="l l-es">Idiomas</span></div><div class="v"><span class="l l-pt">Português</span><span class="l l-en">Portuguese</span><span class="l l-es">Portugués</span></div></div>
         <div class="fact"><div class="k"><span class="l l-pt">Altura</span><span class="l l-en">Height</span><span class="l l-es">Altura</span></div><div class="v"><span class="l l-pt">1,78 m</span><span class="l l-en">1.78 m</span><span class="l l-es">1,78 m</span></div></div>
         <div class="fact"><div class="k"><span class="l l-pt">Pé preferencial</span><span class="l l-en">Preferred foot</span><span class="l l-es">Pie hábil</span></div><div class="v"><span class="l l-pt">Canhoto</span><span class="l l-en">Left</span><span class="l l-es">Zurdo</span></div></div>
         <div class="fact"><div class="k"><span class="l l-pt">Clube</span><span class="l l-en">Club</span><span class="l l-es">Club</span></div><div class="v"><span class="l l-pt">São Paulo FC (desde 2016)</span><span class="l l-en">São Paulo FC (since 2016)</span><span class="l l-es">São Paulo FC (desde 2016)</span></div></div>
         <div class="fact"><div class="k"><span class="l l-pt">Contrato</span><span class="l l-en">Contract</span><span class="l l-es">Contrato</span></div><div class="v"><span class="l l-pt">Até 31/05/2028</span><span class="l l-en">Until 05/31/2028</span><span class="l l-es">Hasta 31/05/2028</span></div></div>
+        <div class="fact"><div class="k"><span class="l l-pt">Representação</span><span class="l l-en">Representation</span><span class="l l-es">Representación</span></div><div class="v">4ComM</div></div>
         <div class="fact"><div class="k"><span class="l l-pt">Categoria</span><span class="l l-en">Level</span><span class="l l-es">Categoría</span></div><div class="v"><span class="ptag main"><span class="l l-pt">Sub-20</span><span class="l l-en">Under-20</span><span class="l l-es">Sub-20</span></span></div></div>
       </div>
     </div>
@@ -880,25 +908,16 @@ window.I18NDETF=function(lab,det){const l=document.documentElement.getAttribute(
     <div class="statstrip" style="margin-top:36px;">
       <div class="stat"><div class="sn">81</div><div class="su"><span class="l l-pt">jogos no Sub-20</span><span class="l l-en">U-20 appearances</span><span class="l l-es">partidos en Sub-20</span></div></div>
       <div class="stat"><div class="sn">4.213</div><div class="su"><span class="l l-pt">minutos no Sub-20</span><span class="l l-en">U-20 minutes</span><span class="l l-es">minutos en Sub-20</span></div></div>
-      <div class="stat"><div class="sn">10</div><div class="su"><span class="l l-pt">participações em gols</span><span class="l l-en">goal contributions</span><span class="l l-es">participaciones en goles</span></div></div>
+      <div class="stat"><div class="sn">4</div><div class="su"><span class="l l-pt">gols no Sub-20</span><span class="l l-en">U-20 goals</span><span class="l l-es">goles en Sub-20</span></div></div>
+      <div class="stat"><div class="sn">6</div><div class="su"><span class="l l-pt">assistências</span><span class="l l-en">assists</span><span class="l l-es">asistencias</span></div></div>
       <div class="stat"><div class="sn">3</div><div class="su"><span class="l l-pt">títulos de base</span><span class="l l-en">youth titles</span><span class="l l-es">títulos de base</span></div></div>
-      <div class="stat"><div class="sn">2028</div><div class="su"><span class="l l-pt">fim de contrato</span><span class="l l-en">contract expiry</span><span class="l l-es">fin de contrato</span></div></div>
     </div>
-    <div class="tbl-note"><span class="l l-pt">Jogos, minutos e participações em gols no Sub-20: oGol (validado em 30/07/2026). As métricas por 90 minutos das seções seguintes vêm do export individual Wyscout.</span><span class="l l-en">U-20 appearances, minutes and goal contributions: oGol (verified 30 July 2026). The per-90 metrics in the following sections come from the individual Wyscout export.</span><span class="l l-es">Partidos, minutos y participaciones en el Sub-20: oGol (validado el 30/07/2026). Las métricas por 90 minutos de las secciones siguientes provienen del export individual de Wyscout.</span></div>
-  </div>
-</section>
-
-<section id="titulos">
-  <div class="wrap">
-    <div class="eyebrow"><span class="l l-pt">Títulos</span><span class="l l-en">Honours</span><span class="l l-es">Títulos</span></div>
-    <h2 class="st"><span class="l l-pt">Três taças em duas temporadas</span><span class="l l-en">Three trophies in two seasons</span><span class="l l-es">Tres títulos en dos temporadas</span></h2>
-    <p class="lead"><span class="l l-pt">Entre 2024 e 2025, o São Paulo venceu as duas competições nacionais de base mais disputadas do país — e Felipe estava no elenco das três conquistas.</span><span class="l l-en">Between 2024 and 2025 São Paulo won the two most contested national youth competitions in Brazil — and Felipe was in the squad for all three titles.</span><span class="l l-es">Entre 2024 y 2025, el São Paulo ganó las dos competiciones nacionales de base más disputadas del país — y Felipe estuvo en el plantel de las tres conquistas.</span></p>
-    <div class="tits">
-      <div class="tit"><div class="ic"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#d4af37" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0z"/><path d="M7 6H4a1 1 0 0 0-1 1c0 2.2 1.8 4 4 4M17 6h3a1 1 0 0 1 1 1c0 2.2-1.8 4-4 4"/></svg></div><div class="n">2024</div><div class="c"><span class="l l-pt">Copa do Brasil Sub-20</span><span class="l l-en">Copa do Brasil Under-20</span><span class="l l-es">Copa de Brasil Sub-20</span></div><div class="y"><span class="l l-pt">campeão</span><span class="l l-en">champion</span><span class="l l-es">campeón</span></div></div>
-      <div class="tit"><div class="ic"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#d4af37" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0z"/><path d="M7 6H4a1 1 0 0 0-1 1c0 2.2 1.8 4 4 4M17 6h3a1 1 0 0 1 1 1c0 2.2-1.8 4-4 4"/></svg></div><div class="n">2025</div><div class="c"><span class="l l-pt">Copa do Brasil Sub-20</span><span class="l l-en">Copa do Brasil Under-20</span><span class="l l-es">Copa de Brasil Sub-20</span></div><div class="y"><span class="l l-pt">bicampeão</span><span class="l l-en">back-to-back champion</span><span class="l l-es">bicampeón</span></div></div>
-      <div class="tit"><div class="ic"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#d4af37" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0z"/><path d="M7 6H4a1 1 0 0 0-1 1c0 2.2 1.8 4 4 4M17 6h3a1 1 0 0 1 1 1c0 2.2-1.8 4-4 4"/></svg></div><div class="n">2025</div><div class="c"><span class="l l-pt">Copinha</span><span class="l l-en">Copa São Paulo</span><span class="l l-es">Copinha</span></div><div class="y"><span class="l l-pt">campeão · 5 jogos na campanha</span><span class="l l-en">champion · 5 games in the run</span><span class="l l-es">campeón · 5 partidos</span></div></div>
+    <div class="titchips">
+      <span class="tchip"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#d4af37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0z"/><path d="M7 6H4a1 1 0 0 0-1 1c0 2.2 1.8 4 4 4M17 6h3a1 1 0 0 1 1 1c0 2.2-1.8 4-4 4"/></svg><b>2024</b><span><span class="l l-pt">Copa do Brasil Sub-20</span><span class="l l-en">Copa do Brasil U-20</span><span class="l l-es">Copa de Brasil Sub-20</span></span></span>
+      <span class="tchip"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#d4af37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0z"/><path d="M7 6H4a1 1 0 0 0-1 1c0 2.2 1.8 4 4 4M17 6h3a1 1 0 0 1 1 1c0 2.2-1.8 4-4 4"/></svg><b>2025</b><span><span class="l l-pt">Copa do Brasil Sub-20 · bi</span><span class="l l-en">Copa do Brasil U-20 · back-to-back</span><span class="l l-es">Copa de Brasil Sub-20 · bi</span></span></span>
+      <span class="tchip"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#d4af37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0z"/><path d="M7 6H4a1 1 0 0 0-1 1c0 2.2 1.8 4 4 4M17 6h3a1 1 0 0 1 1 1c0 2.2-1.8 4-4 4"/></svg><b>2025</b><span>Copinha · <span class="l l-pt">5 jogos na campanha</span><span class="l l-en">5 games in the run</span><span class="l l-es">5 partidos</span></span></span>
     </div>
-    <div class="tbl-note"><span class="l l-pt">A Copinha (Copa São Paulo de Futebol Júnior) é a principal vitrine de base do futebol brasileiro e reúne mais de 120 clubes. A Copa do Brasil Sub-20 é a competição nacional eliminatória da categoria. Fonte: oGol e assessoria do São Paulo FC.</span><span class="l l-en">The Copinha (Copa São Paulo de Futebol Júnior) is Brazilian football's main youth showcase, gathering more than 120 clubs. The Copa do Brasil Under-20 is the category's national knockout competition. Source: oGol and São Paulo FC.</span><span class="l l-es">La Copinha es la principal vitrina de base del fútbol brasileño y reúne más de 120 clubes. La Copa de Brasil Sub-20 es la competición nacional eliminatoria de la categoría. Fuente: oGol y São Paulo FC.</span></div>
+    <div class="tbl-note"><span class="l l-pt">Jogos, minutos, gols e assistências no Sub-20: oGol (validado em 30/07/2026). Títulos: oGol e assessoria do São Paulo FC. As métricas por 90 minutos das seções seguintes vêm do export individual Wyscout.</span><span class="l l-en">U-20 appearances, minutes, goals and assists: oGol (verified 30 July 2026). Honours: oGol and São Paulo FC. The per-90 metrics in the following sections come from the individual Wyscout export.</span><span class="l l-es">Partidos, minutos, goles y asistencias en el Sub-20: oGol (validado el 30/07/2026). Títulos: oGol y São Paulo FC. Las métricas por 90 minutos de las secciones siguientes provienen del export individual de Wyscout.</span></div>
   </div>
 </section>
 
@@ -1379,12 +1398,23 @@ document.querySelectorAll('.themesw button').forEach(b=>b.addEventListener('clic
   idle();
   tl.insertAdjacentElement('afterend',cap);
   const nodes=[...tl.querySelectorAll('.tl-i')];
+  const mob=()=>matchMedia('(max-width:760px)').matches;
+  let bk=null;
+  function closePop(){cap.classList.remove('pop');if(bk){bk.remove();bk=null;}
+    nodes.forEach(x=>x.classList.remove('sel'));idle();}
   nodes.forEach((n,i)=>n.addEventListener('click',()=>{
-    if(n.classList.contains('sel')){n.classList.remove('sel');idle();return;}
+    if(n.classList.contains('sel')&&!mob()){n.classList.remove('sel');idle();return;}
     nodes.forEach(x=>x.classList.remove('sel'));n.classList.add('sel');
     const d=F[lang()][i];
     cap.classList.add('on');
     cap.innerHTML='<div class="ty">'+d[0]+'</div><ul>'+d[1].map(x=>'<li>'+x+'</li>').join('')+'</ul>';
+    if(mob()){
+      if(!bk){bk=document.createElement('div');bk.className='tlbk';document.body.appendChild(bk);
+        bk.addEventListener('click',closePop);}
+      cap.classList.add('pop');
+      const x=document.createElement('button');x.className='tlx';x.innerHTML='&times;';
+      x.addEventListener('click',closePop);cap.appendChild(x);
+    }
   }));
 })();
 /* titulos V5: cascata */
@@ -1458,7 +1488,7 @@ document.querySelectorAll('.themesw button').forEach(b=>b.addEventListener('clic
 })();
 /* CASCATA GERAL */
 (function(){
-  const els=[...document.querySelectorAll('.evc,.fitc,.cbox')];
+  const els=[...document.querySelectorAll('.evc,.fitc,.cbox,.titchips')];
   const io=new IntersectionObserver(es=>{es.forEach(e=>{
     if(!e.isIntersecting)return;
     const el=e.target; io.unobserve(el);
