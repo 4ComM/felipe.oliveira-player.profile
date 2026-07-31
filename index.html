@@ -575,6 +575,20 @@
 html{scroll-behavior:smooth;}
 /* grid do hero: primeira fileira de quadrados completa (padrao V5) */
 .hero-grid{background-position:0 59px;}
+/* mobile: grid flush no topo e colunas exatas (encaixe total) */
+@media (max-width:900px){
+  .hero-media{overflow:hidden;}
+  .hero-media .hero-grid{background-position:0 0;background-size:calc(100vw/7) calc(100vw/7);}
+}
+/* foto hero: respiro de entrada + grid se formando (padrao V5) */
+#hero .hero-photo,#hero .hero-img-m{animation:hph 1.7s cubic-bezier(.25,.8,.3,1) forwards;}
+@keyframes hph{0%{transform:scale(1.05);filter:saturate(.72) brightness(.86);}100%{transform:none;filter:none;}}
+#hero .hero-grid{opacity:0;
+  -webkit-mask-image:linear-gradient(118deg,#000 42%,transparent 60%);mask-image:linear-gradient(118deg,#000 42%,transparent 60%);
+  -webkit-mask-size:300% 300%;mask-size:300% 300%;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  animation:hgridin 2s ease-out .4s forwards;}
+@keyframes hgridin{0%{opacity:0;-webkit-mask-position:100% 100%;mask-position:100% 100%;}28%{opacity:1;}100%{opacity:1;-webkit-mask-position:0% 0%;mask-position:0% 0%;}}
 /* capa V5: cascata de entrada */
 #hero .hero-content .wrap>*{opacity:0;transform:translateY(14px);animation:hin .65s cubic-bezier(.2,.9,.3,1) forwards;}
 #hero .hero-content .wrap>*:nth-child(1){animation-delay:.08s}
@@ -585,12 +599,6 @@ html{scroll-behavior:smooth;}
 #hero .hero-content .wrap>*:nth-child(6){animation-delay:.66s}
 #hero .hero-content .wrap>*:nth-child(7){animation-delay:.85s}
 @keyframes hin{to{opacity:1;transform:none;}}
-a.hh2{animation-name:hin2 !important;}
-@keyframes hin2{0%{opacity:0;transform:translateY(16px) scale(.97);}70%{opacity:1;transform:translateY(-3px) scale(1.01);}100%{opacity:1;transform:none;}}
-/* capa V5: clicaveis */
-a.passp,a.hh2{text-decoration:none;color:inherit;cursor:pointer;transition:transform .25s ease, box-shadow .25s ease;}
-a.passp:hover{transform:translateY(-2px);}
-a.hh2:hover{transform:translateY(-3px);box-shadow:0 24px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(212,175,55,.55);}
 /* capa V5: scroll cue */
 .scue{position:fixed;right:26px;bottom:26px;z-index:90;width:26px;height:42px;
   border:1.5px solid rgba(255,255,255,.5);border-radius:16px;display:flex;justify-content:center;padding-top:7px;
@@ -791,12 +799,12 @@ window.I18NDETF=function(lab,det){const l=document.documentElement.getAttribute(
     <div class="h-rule"></div>
     <div class="h-info"><span class="l l-pt">Lateral esquerdo · São Paulo FC · 19 anos · Canhoto · 1,78 m</span><span class="l l-en">Left-back · São Paulo FC · 19 years old · Left-footed · 1.78 m</span><span class="l l-es">Lateral izquierdo · São Paulo FC · 19 años · Zurdo · 1,78 m</span></div>
 
-    <a class="passp" href="#ficha">
+    <div class="passp">
       <span class="fl"><svg viewBox="0 0 22 15" width="22" height="15"><rect width="22" height="15" rx="2" fill="#009b3a"/><path d="M11 1.5 20 7.5 11 13.5 2 7.5z" fill="#fedf00"/><circle cx="11" cy="7.5" r="3" fill="#002776"/></svg><svg viewBox="0 0 22 15" width="22" height="15"><rect width="22" height="15" rx="2" fill="#f00"/><rect width="8.8" height="15" rx="2" fill="#060"/><circle cx="8.8" cy="7.5" r="3.4" fill="#ff0" stroke="#fff" stroke-width=".7"/></svg></span>
       <span class="tx"><span class="l l-pt"><b>Passaporte português</b><br>Não ocupa vaga de extracomunitário na UE</span><span class="l l-en"><b>Portuguese passport</b><br>Does not take a non-EU squad slot</span><span class="l l-es"><b>Pasaporte portugués</b><br>No ocupa plaza de extracomunitario en la UE</span></span>
-    </a>
+    </div>
 
-    <a class="hh2" href="#numeros">
+    <div class="hh2">
       <div class="c">
         <div class="t"><span class="l l-pt">Passes para o terço final</span><span class="l l-en">Passes into the final third</span><span class="l l-es">Pases al tercio final</span></div>
         <div class="n">1º</div>
@@ -809,7 +817,7 @@ window.I18NDETF=function(lab,det){const l=document.documentElement.getAttribute(
         <div class="u"><span class="l l-pt">entre 47 laterais esquerdos · times Sub-20 do futebol brasileiro</span><span class="l l-en">of 47 left-backs · Brazilian Under-20 sides</span><span class="l l-es">entre 47 laterales izquierdos · equipos Sub-20 del fútbol brasileño</span></div>
         <div class="d"><span class="l l-pt"><b>39,0 por 90</b> contra mediana de 24. Ele não só toca: <b>é o lateral que o time mais procura</b></span><span class="l l-en"><b>39.0 per 90</b> against a median of 24. He doesn't just pass: <b>he is the full-back his team looks for most</b></span><span class="l l-es"><b>39,0 por 90</b> contra mediana de 24. No solo toca: <b>es el lateral que más buscan</b></span></div>
       </div>
-    </a>
+    </div>
 
     <div class="h-updated"><span class="l l-pt">Base Wyscout · 47 laterais esquerdos das competições Sub-20 do Brasil com 900+ minutos, 2024–2026 · percentis calibrados pela posição no futebol profissional · cálculos 4ComM · dados atualizados até 30/07/2026</span><span class="l l-en">Wyscout base · 47 left-backs from Brazilian U-20 competitions with 900+ minutes, 2024–2026 · percentiles calibrated against the professional game · 4ComM calculations · data updated to 30 July 2026</span><span class="l l-es">Base Wyscout · 47 laterales izquierdos de las competiciones Sub-20 de Brasil con 900+ minutos, 2024–2026 · percentiles calibrados por el fútbol profesional · cálculos 4ComM · datos actualizados hasta el 30/07/2026</span></div>
   </div></div>
